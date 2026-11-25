@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#172a43"><meta name="description" content="Dos Electronics Courier Tracking">
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg">
+<title>Dos Electronics | Courier Tracking</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<div id="loginView" class="login-wrap">
+  <div class="login-card">
+    <div class="brand-mark">DE</div><h1>Dos Electronics</h1><p class="muted">Courier Tracking System</p>
+    <form id="loginForm">
+      <label>Email address<input id="email" type="email" required autocomplete="username"></label>
+      <label>Password<input id="password" type="password" required autocomplete="current-password"></label>
+      <button class="primary full" type="submit">Sign in</button>
+    </form>
+    <p id="loginMsg" class="message"></p>
+    <p class="hint">Ask your administrator to create your account. New accounts must be created in Supabase Authentication.</p>
+  </div>
+</div>
+<div id="appView" class="app hidden">
+  <aside class="sidebar">
+    <div class="side-brand"><span class="brand-mark small">DE</span><div><b>Dos Electronics</b><small>Courier Tracking</small></div></div>
+    <nav>
+      <button class="nav active" data-page="dashboard">▦ Dashboard</button>
+      <button class="nav" data-page="bookings">▣ Courier Bookings</button>
+      <button class="nav" data-page="new">＋ New Booking</button>
+      <button class="nav admin-only" data-page="users">♙ Team & Couriers</button>
+    </nav>
+    <div class="side-bottom"><span id="sideUser"></span><button id="logoutBtn" class="outline full">Sign out</button></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><div class="eyebrow">DOS ELECTRONICS</div><h2 id="pageTitle">Dashboard</h2></div><div class="user-chip"><span id="userName">User</span><span id="userRole" class="role"></span></div></header>
+    <section id="dashboardPage" class="page">
+      <div class="stats">
+        <div class="stat"><span>Total bookings</span><strong id="statTotal">0</strong></div>
+        <div class="stat"><span>In transit</span><strong id="statTransit">0</strong></div>
+        <div class="stat"><span>Delivered</span><strong id="statDelivered">0</strong></div>
+        <div class="stat"><span>Pending / failed</span><strong id="statPending">0</strong></div>
+      </div>
+      <div class="panel"><div class="panel-head"><div><h3>Recent courier activity</h3><p>Latest bookings visible to your account</p></div><button class="secondary" data-goto="bookings">View all</button></div><div id="recentList" class="table-wrap"></div></div>
+    </section>
+    <section id="bookingsPage" class="page hidden">
+      <div class="panel"><div class="panel-head"><div><h3>Courier bookings</h3><p>Search and manage your visible shipments</p></div><button class="primary" data-goto="new">＋ New booking</button></div>
+      <div class="filters"><input id="searchBox" placeholder="Search booking, receiver, AWB..."><select id="statusFilter"><option value="">All statuses</option><option>Booked</option><option>Picked Up</option><option>In Transit</option><option>Out for Delivery</option><option>Delivered</option><option>Delivery Failed</option><option>Returned</option></select></div>
+      <div id="bookingList" class="table-wrap"></div></div>
+    </section>
+    <section id="newPage" class="page hidden">
+      <div class="panel form-panel"><div class="panel-head"><div><h3>Create courier booking</h3><p>Enter shipment and receiver details</p></div></div>
+      <form id="bookingForm" class="form-grid">
+        <label>Sender / Employee name<input name="sender_name" required></label><label>Sender phone<input name="sender_phone" inputmode="tel"></label>
+        <label>Receiver name<input name="receiver_name" required></label><label>Receiver phone<input name="receiver_phone" required inputmode="tel"></label>
+        <label class="wide">Delivery address<textarea name="receiver_address" required rows="2"></textarea></label>
+        <label>Courier company<input name="courier_company" placeholder="DTDC, Blue Dart, Delhivery..."></label><label>AWB / Tracking number<input name="awb_number"></label>
+        <label>Tracking website URL<input name="tracking_url" type="url" placeholder="https://..."></label><label>Parcel description<input name="parcel_description" placeholder="Laptop / documents / accessories"></label>
+        <label class="wide">Notes<textarea name="notes" rows="2"></textarea></label>
+        <div class="wide"><button class="primary" type="submit">Save courier booking</button><span id="bookingMsg" class="message"></span></div>
+      </form></div>
+    </section>
+    <section id="usersPage" class="page hidden">
+      <div class="panel"><div class="panel-head"><div><h3>Team & courier boys</h3><p>Profiles registered in this courier application</p></div></div><div id="teamList" class="table-wrap"></div><p class="hint">Create user accounts in Supabase → Authentication → Users. New profiles default to Employee. Change roles using the SQL instructions in the setup guide.</p></div>
+    </section>
+    <div id="globalMsg" class="toast" aria-live="polite"></div>
+  </main>
+</div>
+<dialog id="detailDialog"><div class="dialog-head"><h3>Shipment details</h3><button id="closeDialog" class="icon-btn">✕</button></div><div id="detailBody"></div></dialog>
+<script src="config.js"></script><script src="app.js"></script>
+</body></html>

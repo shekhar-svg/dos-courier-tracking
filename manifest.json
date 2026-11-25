@@ -1,0 +1,18 @@
+{
+  "name": "Dos Electronics Courier Tracking",
+  "short_name": "DE Courier",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#172a43",
+  "description": "Courier management and delivery tracking for Dos Electronics",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
